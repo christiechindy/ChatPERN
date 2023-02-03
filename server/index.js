@@ -3,6 +3,7 @@ const pg = require("pg");
 const pool = require("./db/db");
 const knex = require("./db/knex");
 const cors = require("cors");
+require("dotenv").config({path: __dirname + '/.env' });
 
 const app = express();
 app.use(cors());
