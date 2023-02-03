@@ -1,0 +1,101 @@
+.auth-card {
+    width: 390px;
+    padding: 50px 50px 45px 50px;
+    border-radius: 20px;
+    box-shadow: 0 0px 4px rgba(0,0,0,0.18);
+    margin: 70px auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-card h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.inputField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.inputField label {
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.inputField input {
+    border: 1px solid #dadada;
+    border-radius: 10px;
+    height: 35px;
+    padding: 0px 10px;
+    font-family: "Readex Pro";
+    font-weight: 300;
+    transition: 0.3s ease;
+}
+
+.inputField input::placeholder {
+    text-transform: capitalize;
+}
+
+.inputField input:focus {
+    outline: none;
+    border: 1.5px solid #1381ff;
+    
+}
+
+.auth-card .btn {
+    width: 100%;
+    background-color: #0085ff;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 2px;
+
+    color: white;
+    font: inherit;
+    font-weight: 400;
+    font-size: 14px;
+
+    transition: 0.3s ease;
+}
+
+.auth-card .btn:hover {
+    cursor: pointer;
+    background-color: #0055a5;
+}
+
+.auth-card .orText {
+    color: #0085ff;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+.auth-card .another {
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+.auth-card .another a {
+    transition: 0.4s ease;
+}
+
+.auth-card .another a:hover {
+    color: #0085ff;
+    font-size: 14px;
+}
+
+.auth-card span.inputStatus {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}

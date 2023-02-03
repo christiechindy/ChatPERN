@@ -1,0 +1,99 @@
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "name": "chindy",
+    "email": "hgh@gmail.com",
+    "password": "aaa"
+}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email": "hgh@gmail.com",
+    "password": "ss"
+}
+
+###
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "name": "tes2",
+    "email": "tes2@gmail.com",
+    "password": "bbb"
+}
+
+###
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "name": "tes3",
+    "email": "tes3@gmail.com",
+    "password": "ccc"
+}
+
+###
+
+GET http://localhost:5000/8/friends
+
+###
+
+GET http://localhost:5000/friend=6
+
+###
+
+GET http://localhost:5000/messages/1
+
+###
+
+POST http://localhost:5000/sendmessage
+Content-Type: application/json
+
+{
+    "sender_id": 7,
+    "relation_id": 1,
+    "words": "coba lgi be np msh error be nya"
+}
+
+###
+
+POST http://localhost:5000/userid_of_email
+Content-Type: application/json
+
+{
+    "email": "tes1@gmail.com"
+}
+
+###
+
+POST http://localhost:5000/invitations
+Content-Type: application/json
+
+{
+    "id": 6
+}
+
+###
+
+POST http://localhost:5000/invdata
+Content-Type: application/json
+
+{
+    "id": 6
+}
+
+###
+
+POST http://localhost:5000/inv/acc
+Content-Type: application/json
+
+{
+    "relation_id": 5
+}

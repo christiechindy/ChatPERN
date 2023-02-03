@@ -1,0 +1,602 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    --bg: #1A1A2E;
+    --textPrimary: #f0f0f0;
+    --textSecondary: #c3c3c3;
+    --purple: #896bf2;
+    --pink: #e9319f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Readex Pro", "Segoe UI", Arial, Helvetica, sans-serif;
+    color: var(--textPrimary);
+}
+
+/*----------------------authcard-------------------*/
+.auth-card {
+    width: 390px;
+    padding: 50px 50px 45px 50px;
+    border-radius: 20px;
+    box-shadow: 0 0px 4px rgba(0,0,0,0.18);
+    margin: 70px auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-card h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.inputField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.inputField label {
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.inputField input {
+    /* border: 1px solid #dadada; */
+    border-radius: 10px;
+    height: 35px;
+    padding: 0px 10px;
+    font-family: "Readex Pro";
+    font-weight: 300;
+    transition: 0.3s ease;
+    color: black;
+}
+
+.inputField input::placeholder {
+    text-transform: capitalize;
+}
+
+.inputField input:focus {
+    outline: none;
+    border: 1.5px solid #1381ff;
+}
+
+.auth-card .btn {
+    width: 100%;
+    background-color: #0085ff;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 2px;
+
+    color: white;
+    font: inherit;
+    font-weight: 400;
+    font-size: 14px;
+
+    transition: 0.3s ease;
+}
+
+.auth-card .btn:hover {
+    cursor: pointer;
+    background-color: #0055a5;
+}
+
+.auth-card .orText {
+    color: #0085ff;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+.auth-card .another {
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+.auth-card .another a {
+    transition: 0.4s ease;
+}
+
+.auth-card .another a:hover {
+    color: #0085ff;
+    font-size: 14px;
+}
+
+.auth-card span.inputStatus {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+/*------------------------APP------------------------------*/
+.App {
+    display: flex;
+    background-color: var(--bg);
+    overflow-y: hidden;
+}
+
+.sidebar {
+    min-width: 55px;
+    height: 100vh;
+    background-color: #0a0a23;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.list {
+    min-width: 370px;
+    border-right: 1px solid #626262;
+}
+
+.room {
+    width: 100%;
+}
+
+/*---------------------------------------------------------*/
+.sidebar .notif {
+    width: 23px;
+    object-fit: cover;
+}
+
+.sidebar .notif:hover {
+    cursor: pointer;
+}
+
+.sidebar .profil img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    /* object-position: left; */
+    border-radius: 50%;
+}
+
+.list .wrapper {
+    width: 325px;
+    margin: 0 auto;
+}
+
+.list .searchbar input {
+    width: 100%;
+    height: 40px;
+    background-color: #232e5b;
+    border: none;
+    border-radius: 15px;
+    padding: 0px 24px;
+    margin-top: 18px;
+
+    transition: 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+.list .searchbar input:focus {
+    outline: none;
+    background-color: #26356d;
+}
+
+.list .searchbar {
+    position: relative;
+}
+
+.list .searchbar .searchIcon {
+    width: 18px;
+    height: 17px;
+    position: absolute;
+    right: 20px;
+    top: 48%;
+}
+
+.list .box {
+    width: 100%;
+    background-color: #282d44;
+    height: calc(100vh - 76px) !important;
+    margin-top: 18px;
+    border-radius: 15px 15px 0 0;
+    padding: 10px 12px 10px 12px;
+
+    overflow-y: scroll;
+}
+
+.list .row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 5px 7px;
+    border-radius: 15px;
+    transition: 0.2s ease-in-out;
+
+    margin-bottom: 6px;
+}
+
+.list .row:hover {
+    background-color: #1A2349;
+}
+
+.list .box .active .row {
+    background-color: #232e5b;
+}
+
+.list .addFriend.row .icon img {
+    object-fit: cover;
+    width: 48px;
+    height: 48px;
+}
+
+.list .addFriend.row .text {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--pink);
+}
+
+img.face {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.room {
+    padding-top: 18px;
+    padding-bottom: 15px;
+}
+
+.room .wrapper {
+    width: 777px;
+    margin: 0 auto;
+}
+
+.row .name {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.row .icon {
+    width: 48px;
+    height: 48px;
+}
+
+.row .lastMessage {
+    color: var(--textSecondary);
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+.row .text {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.row .text .time {
+    font-weight: 600;
+    font-size: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--purple);
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pink);
+}
+
+/*-------------------------ROOM----------------------*/
+.room .wrapper {
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.room .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.room .people {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.people .pict.left {
+    width: 48px;
+    height: 48px;
+}
+
+.people .name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.people .email {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--textSecondary);
+}
+
+.header .status {
+    color: #04bc00;
+    font-size: 14px;
+}
+
+/* .room .wrapper div:last-child {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+} */
+
+.room .messages {
+    /* height: calc(100% - 161px) !important; */
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.room .typing {
+    margin-top: 20px;
+}
+
+.room .typing input {
+    width: 100%;
+    height: 40px;
+    background-color: #282d44;
+    border-radius: 20px;
+    border: none;
+
+    padding-left: 25px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.room .typing .sendBtn { /*icon send*/
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+
+    position: absolute;
+    right: 25px;
+    bottom: 25%;
+    cursor: pointer;
+}
+
+.room .typing {
+    position: relative;
+}
+
+/*-----------------MESSAGES-----------------*/
+.bubbleChat {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.bubbleChat.right {
+    margin-right: 0;
+    flex-direction: row-reverse;
+}
+
+.bubbleChat .message {
+    padding: 8px 12px;
+    background-color: #202057;
+    width: fit-content;
+
+    font-size: 0.85rem;
+    font-weight: 300;
+}
+
+.left .message {
+    border-radius: 0 10px 10px 10px;
+}
+
+.right .message {
+    border-radius: 10px 0 10px 10px;
+}
+
+.bubbleChat .info * {
+    font-weight: 200;
+    font-size: 9px;
+    color: var(--textSecondary);
+}
+
+.bubbleChat .read {
+    margin-bottom: 5px;
+    text-align: right;
+}
+
+/*------------------------ADD FRIEND----------------------*/
+.addFriend.room {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.addFriend.room h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 26px;
+}
+
+.addFriend.room label {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.addFriend.room input {
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #282d44;
+    border: none;
+    padding-left: 15px;
+    margin-top: 8px;
+    margin-bottom: 26px;
+}
+
+.addFriend.room button {
+    background-color: var(--pink);
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+
+    font-weight: 500;
+    font-size: 1rem;
+    color: #232e5b;
+    transition: 0.4s ease-in-out;
+}
+
+.addFriend.room button:hover {
+    background-color: #232e5b;
+    color: var(--pink);
+    cursor: pointer;
+}
+
+.addFriend.room .error {
+    position: absolute;
+    bottom: 40px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--textSecondary);
+}
+
+/*------------------NOTIFBOX-------------*/
+
+.notifbox {
+    position: absolute;
+    left: 55px;
+    background: rgba(137, 107, 242, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.notifbox h1 {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.notifbox .inv {
+    display: flex;
+    margin-top: 12px;
+    gap: 28px; /*gap sb x*/
+}
+
+.notifbox .sender {
+    display: flex;
+}
+
+.notifbox .name_time {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    margin-left: 12px;
+
+    min-width: 80px;
+}
+
+.notifbox .name {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.notifbox .icon, .notifbox .icon * {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+}
+
+.notifbox .time {
+    font-weight: 300;
+    font-size: 10px;
+    color: var(--textSecondary);
+}
+
+.notifbox .actionBtn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.notifbox .actionBtn button {
+    background-color: #fc17a0;
+    border-radius: 10px;
+    padding: 6px 12px;
+    border: none;
+    color: white;
+    font-size: 12px;
+    transition: 0.3s ease-in-out;
+}
+
+.notifbox .actionBtn button:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
+.notifbox button:last-child {
+    background-color: #b90f75;
+    color: var(--textSecondary);
+}
+
+.myaccount {
+    position: absolute;
+    left: 55px;
+    top: 52%;
+    background: rgba(137, 107, 242, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 14px;
+    transition: 0.3s ease-in;
+}
+
+.myaccount:hover {
+    cursor: pointer;
+    background: rgba(220, 59, 169, 0.2);
+    backdrop-filter: blur(25px);
+}
