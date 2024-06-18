@@ -22,11 +22,18 @@ body {
 }
 
 /*----------------------authcard-------------------*/
+.loginPage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
 .auth-card {
     width: 390px;
     padding: 50px 50px 45px 50px;
     border-radius: 20px;
-    box-shadow: 0 0px 4px rgba(0,0,0,0.18);
+    box-shadow: 0 0px 4px rgba(255, 0, 179, 0.9);
     margin: 70px auto;
 
     display: flex;
@@ -34,9 +41,10 @@ body {
 }
 
 .auth-card h1 {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .inputField {
@@ -53,7 +61,7 @@ body {
 }
 
 .inputField input {
-    /* border: 1px solid #dadada; */
+    border: 1.5px solid white;
     border-radius: 10px;
     height: 35px;
     padding: 0px 10px;
@@ -69,14 +77,14 @@ body {
 
 .inputField input:focus {
     outline: none;
-    border: 1.5px solid #1381ff;
+    border: 1.5px solid var(--pink);
 }
 
 .auth-card .btn {
     width: 100%;
     background-color: #0085ff;
     border: none;
-    padding: 12px;
+    padding: 10px;
     border-radius: 10px;
     margin-top: 2px;
 
@@ -91,16 +99,6 @@ body {
 .auth-card .btn:hover {
     cursor: pointer;
     background-color: #0055a5;
-}
-
-.auth-card .orText {
-    color: #0085ff;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: center;
-
-    margin-top: 12px;
-    margin-bottom: 10px;
 }
 
 .auth-card .another {
@@ -175,34 +173,15 @@ body {
     margin: 0 auto;
 }
 
-.list .searchbar input {
-    width: 100%;
-    height: 40px;
-    background-color: #232e5b;
-    border: none;
-    border-radius: 15px;
-    padding: 0px 24px;
+.list .greetings {
     margin-top: 18px;
+    height: 40px;
+    display: flex;
+    align-items: center;
 
-    transition: 0.3s ease-in-out;
-    font-weight: 400;
-}
-
-.list .searchbar input:focus {
-    outline: none;
-    background-color: #26356d;
-}
-
-.list .searchbar {
-    position: relative;
-}
-
-.list .searchbar .searchIcon {
-    width: 18px;
-    height: 17px;
-    position: absolute;
-    right: 20px;
-    top: 48%;
+    font-weight: 700;
+    color: var(--pink);
+    font-size: 1.5rem;
 }
 
 .list .box {
@@ -274,21 +253,10 @@ img.face {
     height: 48px;
 }
 
-.row .lastMessage {
-    color: var(--textSecondary);
-    font-size: 11px;
-    margin-top: 6px;
-}
-
 .row .text {
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-
-.row .text .time {
-    font-weight: 600;
-    font-size: 10px;
 }
 
 /* width */
@@ -366,7 +334,7 @@ img.face {
 } */
 
 .room .messages {
-    /* height: calc(100% - 161px) !important; */
+    height: calc(100vh - 161px) !important;
     width: 100%;
     overflow-y: scroll;
 }
@@ -389,7 +357,8 @@ input:focus {
     outline: none;
 }
 
-.room .typing .sendBtn { /*icon send*/
+.room .typing .sendBtn {
+    /*icon send*/
     width: 20px;
     height: 20px;
     object-fit: cover;
@@ -522,7 +491,8 @@ input:focus {
 .notifbox .inv {
     display: flex;
     margin-top: 12px;
-    gap: 28px; /*gap sb x*/
+    gap: 28px;
+    /*gap sb x*/
 }
 
 .notifbox .sender {
@@ -545,7 +515,8 @@ input:focus {
     font-weight: 400;
 }
 
-.notifbox .icon, .notifbox .icon * {
+.notifbox .icon,
+.notifbox .icon * {
     width: 38px;
     height: 38px;
     object-fit: cover;
@@ -599,4 +570,54 @@ input:focus {
     cursor: pointer;
     background: rgba(220, 59, 169, 0.2);
     backdrop-filter: blur(25px);
+}
+
+/*--------------------LOADER-------------------------*/
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    animation-fill-mode: both;
+    animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+
+.loader {
+    color: #FFF;
+    font-size: 7px;
+    position: relative;
+    top: -10px;
+    left: 50%;
+    text-indent: -9999em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+
+.loader:before {
+    left: -3.5em;
+    animation-delay: -0.32s;
+}
+
+.loader:after {
+    left: 3.5em;
+}
+
+@keyframes bblFadInOut {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em
+    }
+
+    40% {
+        box-shadow: 0 2.5em 0 0
+    }
 }

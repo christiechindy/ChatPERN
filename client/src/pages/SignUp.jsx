@@ -27,14 +27,10 @@ export default function SignUp() {
     return (
         <div className="auth-card">
             <h1>Sign Up Page</h1>
-            <button className='btn'>Sign Up with Google</button>
-            <span class="orText">OR</span>
             <form>
                 <div className="inputField">
                     <label htmlFor="signup-email">email</label>
                     <input type="email" id="signup-email" placeholder="email" name="email" onChange={handleChange}/>
-                    {/* {(emailVal && emailVal.includes("@") && emailVal.includes(".")) ? 
-                    "" : <span className='inputStatus'>Email is incorrect</span>} */}
                 </div>
 
                 <div className="inputField">

@@ -28,4 +28,8 @@ const accinv = async (req, res) => {
     return res.status(200).json("Accepted!");
 }
 
-module.exports = {addFriend, invdata, lists, accinv};
+const refuseinv = async(req, res) => {
+    await knex("friends_relation").where({relation_id: req.body.relation_id}).del()
+}
+
+module.exports = {addFriend, invdata, lists, accinv, refuseinv};

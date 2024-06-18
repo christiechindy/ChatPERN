@@ -46,7 +46,6 @@ io.on("connection", (socket) => {
 
     socket.on("send_message", (data) => {
         socket.to(data.relation_id).emit("receive_message", data);
-        
     })
 })
 
@@ -83,6 +82,7 @@ app.get("/messages/:relation_id", async (req, res) => {
 //send message in a room
 app.post("/sendmessage", async (req, res) => {
     await knex("messages").insert({
+        sent_time: req.body.sent_time,
         sender_id: req.body.sender_id,
         relation_id: req.body.relation_id,
         words: req.body.words
@@ -112,11 +112,6 @@ app.get("/:my/friends", async (req, res) => { //req.params.my
 
         friends[i].pict = friend_info[0].pict;
         friends[i].name = friend_info[0].name;
-
-        const last_message_info = await knex.select(["words", "sent_time"]).from("messages").where({relation_id: friends[i].relation_id}).orderBy("sent_time", "desc").limit(1);
-
-        friends[i].words = last_message_info[0]?.words || "";
-        friends[i].time_sent = last_message_info[0]?.sent_time || "";
     }
     
     res.json(friends);

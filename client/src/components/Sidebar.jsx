@@ -10,6 +10,7 @@ import Notification from "./Notification";
 const Sidebar = () => {
     const [showNotif, setShowNotif] = useState(false);
     const [invs, setInvs] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const {currentUser} = useContext(AuthContext);
 
@@ -17,6 +18,7 @@ const Sidebar = () => {
         if (showNotif) {
             setShowNotif(false)
         } else {
+            setLoading(true);
             const res = await axios.post("http://localhost:5000/inv/lists", {id: currentUser.user_id});
             setInvs(res.data);
 
@@ -31,7 +33,7 @@ const Sidebar = () => {
             <div className="notif" onClick={notifClicked}>
                 <NotifBell />
             </div>
-            {showNotif ? <Notification invs={invs} /> : ""}
+            {showNotif ? <Notification invs={invs} loading={loading} setLoading={setLoading} /> : ""}
             <div className="profil" onClick={() => setShowProfil(!showProfil)}>
                 <img src="http://assets.kompasiana.com/items/album/2017/12/20/gettyimages-dot-com-baby-face-5a3a78d1cf01b432266bbca4.jpg" alt="people" className="face" />
             </div>

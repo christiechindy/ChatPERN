@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { FriendChatContext } from "../context/FriendChatContext";
 import Avatar from "../icons/Avatar"
+import Loading from "./Loading";
 
-const Notification = ({invs}) => {
+const Notification = ({invs, loading, setLoading}) => {
     const [invsdata, setInvsdata] = useState([]);
 
     useEffect(() => {
-        console.log("how mny times useeffect is called");
         const getInvsData = async () => {
             setInvsdata([]);
             for (let i = 0; i < invs.length; i++) {        
@@ -26,6 +26,7 @@ const Notification = ({invs}) => {
                     }
                 ])
             }
+            setLoading(false);
         }
         getInvsData();
     }, [])
@@ -36,18 +37,22 @@ const Notification = ({invs}) => {
         await axios.post("http://localhost:5000/inv/acc", {relation_id});
 
         //setTodos(todos.filter(todo => todo.id !== todoId))
-        setInvsdata(invsdata.filter(data => data.user_id !== user_id));
+        setInvsdata(invsdata => invsdata.filter(data => data.user_id !== user_id));
+        // setTodos(todos => todos.filter(todo => todo._id !== data._id));
 
         fetchFriends();
     }
 
-    const refuseHandler = (relation_id) => {
-
+    const refuseHandler = async (relation_id, user_id) => {
+        console.log("refuseee")
+        await axios.post("http://localhost:5000/inv/refuse", {relation_id});
+        setInvsdata(invsdata => invsdata.filter(data => data.user_id !== user_id));
     }
 
     return (
         <div className="notifbox">
             <h1>Permintaan Pertemanan {invsdata.length}</h1>
+            {loading ? <Loading /> : ""}
             {invsdata?.map(inv => (
                 <div className="inv" key={inv.user_id}>
                     <div className="sender">

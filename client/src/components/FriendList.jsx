@@ -1,18 +1,16 @@
 import React from 'react'
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { useEffect } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import Avatar from "../icons/Avatar";
 import { FriendChatContext } from "../context/FriendChatContext";
+import Loading from "./Loading";
 
 const FriendList = () => {
-    const {friends} = useContext(FriendChatContext);
+    const {friends, loading} = useContext(FriendChatContext);
 
     return (
         <>
+            {loading ? <Loading /> : ""}
             {friends?.map(friend => (
                 <NavLink 
                     to={`/room/${friend.relation_id}`} 
@@ -26,14 +24,12 @@ const FriendList = () => {
                         <img src={friend.pict} alt={friend.name} className="face" /> :
                         <Avatar />
                     }
-                        
+
                     </div>
                     <div className="text">
                         <div className="text-left">
-                        <div className="name">{friend.name} </div>
-                        <div className="lastMessage">{friend.words}</div>
+                            <div className="name">{friend.name} </div>
                         </div>
-                        <div className="time">{friend.time_sent}</div>
                     </div>
                 </div>
                 </NavLink>

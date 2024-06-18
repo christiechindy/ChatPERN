@@ -1,21 +1,20 @@
 import React, { useRef } from 'react'
 import { useState } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import SendPlane from "../icons/SendPlane";
-import io from "socket.io-client";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 import axios from "axios";
 import Avatar from "../icons/Avatar";
 import moment from "moment";
+import { FriendChatContext } from "../context/FriendChatContext";
 
 const Room = ({socket}) => {
-    const {relation_id} = useParams();
-
     const location = useLocation();
-    const {friend_id} = location.state;
 
+    const {relation_id} = useParams();
+    const {friend_id} = location.state;
     const {currentUser} = useContext(AuthContext);
     const my_id = currentUser.user_id;
 
@@ -42,6 +41,7 @@ const Room = ({socket}) => {
             try {
                 const res = await axios.get(`http://localhost:5000/messages/${relation_id}`);
                 setMessages(res.data);
+                console.log("messagesssssss", res.data);
             } catch(err) {
                 console.log(err);
             }
@@ -52,7 +52,6 @@ const Room = ({socket}) => {
 
     /* -----------------SOCKET---------------- */
     const [typingChat, setTypingChat] = useState("");
-    const [messageReceived, setMessageReceived] = useState({});
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -65,13 +64,18 @@ const Room = ({socket}) => {
                 words: typingChat
             }
 
-            await socket.emit("send_message", messageData, relation_id);
+            socket.emit("send_message", messageData, relation_id);
             setMessages(mess => [...mess, messageData]);
             await axios.post("http://localhost:5000/sendmessage", messageData);
-            // console.log("messagedata", messageData);
             setTypingChat("");
         }
     }
+
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+            setMessages(mess => [...mess, data]);
+        })
+    }, [socket])
 
     const buttonSendRef = useRef(null);
 
@@ -80,13 +84,6 @@ const Room = ({socket}) => {
             buttonSendRef.current.click();
         }
     }
-
-    useEffect(() => {
-        socket.on("receive_message", (data) => {
-            console.log("received kok");
-            setMessages(mess => [...mess, data])
-        })
-    }, [socket])
 
     return (
         <div className="room">
