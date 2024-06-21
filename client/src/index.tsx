@@ -5,7 +5,7 @@ import App from './App';
 import { AuthContextProvider } from "./context/AuthContext";
 import { FriendChatContextProvider } from "./context/FriendChatContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
     <AuthContextProvider>
         <FriendChatContextProvider>
