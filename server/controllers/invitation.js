@@ -27,9 +27,30 @@ const invdata = async (req, res) => {
 }
 
 const lists = async (req, res) => {
-    const invs = await knex.select().from("friends_relation").where({status: false, person2: req.body.id});
+    // const invs = await knex.select().from("friends_relation").where({status: false, person2: req.body.id});
 
-    return res.json(invs);
+    // select public.users."name", public.users.pict, public.friends_relation.relation_id, public.friends_relation.person1, public.friends_relation.person2, public.friends_relation.request_time, public.friends_relation.status
+    // from public.users 
+    // join public.friends_relation on public.users.user_id = public.friends_relation.person1;
+
+    try {
+        const invs = await knex("users")
+                            .join("friends_relation", "users.user_id", "=", "friends_relation.person1")
+                            .select(
+                                "users.name",
+                                "users.pict",
+                                "friends_relation.relation_id",
+                                "friends_relation.person1",
+                                "friends_relation.person2",
+                                "friends_relation.request_time",
+                                "friends_relation.status")
+                            .where("friends_relation.status", "false")
+                            .andWhere("friends_relation.person2", req.body.id);
+    
+        return res.json(invs);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 const accinv = async (req, res) => {
@@ -40,6 +61,8 @@ const accinv = async (req, res) => {
 
 const refuseinv = async(req, res) => {
     await knex("friends_relation").where({relation_id: req.body.relation_id}).del()
+
+    return res.json("Success!")
 }
 
 module.exports = {addFriend, invdata, lists, accinv, refuseinv};
