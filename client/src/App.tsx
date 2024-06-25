@@ -5,11 +5,12 @@ import Room from "./components/Room";
 import Sidebar from "./components/Sidebar";
 import LoginPage from "./pages/LoginPage";
 import SignUp from "./pages/SignUp";
-import io from "socket.io-client";
+import {io, Socket} from "socket.io-client";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { ClientToServerEvents, ServerToClientEvents } from "./socket-interface/interface";
 
 // const socket = io.connect("http://localhost:3000");
-const socket = io("ws://localhost:5000");
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("ws://localhost:5000");
 
 const Layout = () => {
     return (
