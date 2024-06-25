@@ -24,8 +24,8 @@ interface IFriendProfile {
 const Room = ({socket}: ISocket) => {
     const location = useLocation();
 
-    const {params} = useParams();
-    const relation_id = Number(params);
+    const {relation_id} = useParams();
+    const relationId = Number(relation_id);
 
     const {friend_id} = location.state;
     const {currentUser} = useContext(AuthContext) as TAuthContextData;
@@ -44,14 +44,14 @@ const Room = ({socket}: ISocket) => {
     }
     useEffect(() => {
         fetchFriendProfile();
-        socket.emit("join_room", relation_id!);
-    }, [relation_id])
+        socket.emit("join_room", relationId!);
+    }, [relationId])
 
     const [messages, setMessages] = useState<IMessageData[]>([]);
 
-    const fetchMessages = async (relation_id: number) => {
+    const fetchMessages = async (relationId: number) => {
         try {
-            const res = await axios.get(`http://localhost:5000/messages/${relation_id}`);
+            const res = await axios.get(`http://localhost:5000/messages/${relationId}`);
             setMessages(res.data);
             console.log("messagesssssss", res.data);
         } catch(err) {
@@ -60,10 +60,10 @@ const Room = ({socket}: ISocket) => {
     }
 
     useEffect(() => {
-        if (relation_id) {
-            fetchMessages(relation_id);
+        if (relationId) {
+            fetchMessages(relationId);
         }
-    }, [relation_id])
+    }, [relationId])
 
 
     /* -----------------SOCKET---------------- */
@@ -76,11 +76,12 @@ const Room = ({socket}: ISocket) => {
             const messageData = {
                 sent_time: moment(Date.now()).format("YYYY-MM-DD hh:mm:ss"),
                 sender_id: my_id,
-                relation_id,
+                relation_id: relationId,
                 words: typingChat
             }
+            console.log("messageData", messageData);
 
-            socket.emit("send_message", messageData, relation_id);
+            socket.emit("send_message", messageData, relationId);
             setMessages(mess => [...mess, messageData]);
             await axios.post("http://localhost:5000/sendmessage", messageData);
             setTypingChat("");
