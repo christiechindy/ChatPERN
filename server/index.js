@@ -9,6 +9,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// if i dont put this following code, the API endpoint will always be called twice.
+// Enable CORS for all requests
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Change * to specific origins as needed
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Max-Age', '86400'); // Cache CORS preflight response for 24 hours
+    next();
+});
+// Handle CORS preflight requests
+app.options('*', (req, res) => {
+    res.status(200).end();
+});
+
 const conString = process.env.DB_CONNECTION //Can be found in the Details page
 const client = new pg.Client(conString);
 client.connect(function (err) {
@@ -57,19 +71,13 @@ app.use("/inv", invRoutes);
 
 
 
-app.post("/userid_of_email", async (req, res) => {
-    const id = await knex.select("user_id").from("users").where({email: req.body.email});
-
-    return res.json(id[0]?.user_id ? id[0].user_id : "not found");
-})
-
 //friend profile in room chat
 app.get("/friend=:friend_id", async (req, res) => {
     const friend_account = await knex.select(["pict", "name", "email"]).from("users").where({user_id: req.params.friend_id});
 
     friend_account[0].pict = friend_account[0]?.pict ||  "";
 
-    res.json(friend_account);
+    res.json(friend_account[0]);
 })
 
 //get messages of a room
@@ -81,12 +89,16 @@ app.get("/messages/:relation_id", async (req, res) => {
 
 //send message in a room
 app.post("/sendmessage", async (req, res) => {
-    await knex("messages").insert({
-        sent_time: req.body.sent_time,
-        sender_id: req.body.sender_id,
-        relation_id: req.body.relation_id,
-        words: req.body.words
-    }).then(res.json("Has been saved in database"))
+    try {
+        await knex("messages").insert({
+            sent_time: req.body.sent_time,
+            sender_id: req.body.sender_id,
+            relation_id: req.body.relation_id,
+            words: req.body.words
+        }).then(res.json("Has been saved in database"))
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 //list friends
