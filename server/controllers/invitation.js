@@ -2,12 +2,22 @@ const knex = require("../db/knex");
 const db = require("../db/db");
 
 const addFriend = async (req, res) => {
-    //tmbhkan utk cek sdh berteman atau tidak
-    await knex("friends_relation").insert({
-        person1: req.body.person1, 
-        person2: req.body.person2
-    });
-    return res.json("Please wait for your friend confirmation");
+    try {
+        const id = await knex.select("user_id").from("users").where({email: req.body.email});
+    
+        if (!id[0]?.user_id) {
+            return res.json("Sorry, that email hasn't been registered in our app")
+        }
+    
+        //tmbhkan utk cek sdh berteman atau tidak
+        await knex("friends_relation").insert({
+            person1: req.body.person1, 
+            person2: id[0].user_id
+        });
+        return res.json("Please wait for your friend confirmation");
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 const invdata = async (req, res) => {
