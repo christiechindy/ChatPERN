@@ -2,11 +2,11 @@ import React from 'react'
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import Avatar from "../icons/Avatar";
-import { FriendChatContext } from "../context/FriendChatContext";
+import { FriendChatContext, TFriendChatContextData } from "../context/FriendChatContext";
 import Loading from "./Loading";
 
 const FriendList = () => {
-    const {friends, loading} = useContext(FriendChatContext);
+    const {friends, loading} = useContext(FriendChatContext) as TFriendChatContextData;
 
     return (
         <>

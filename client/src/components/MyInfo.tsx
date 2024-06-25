@@ -1,28 +1,25 @@
 import axios from "axios"
 import React, { useContext, useState } from 'react'
 import { redirect, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext, TAuthContextData } from "../context/AuthContext";
 
 const MyInfo = () => {
-    const {logout} = useContext(AuthContext);
-
-    const [err, setErr] = useState(null);
+    const {logout} = useContext(AuthContext) as TAuthContextData;
     const navigate = useNavigate();
 
-    const handleClick = async (e) => {
+    const handleLogOut = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.preventDefault();
         try {
             await logout();
             navigate("/login");
-        } catch (err) {
-            setErr(err);
+        } catch (err:any) {
             console.log(err);
         }
     }
 
     return (
         <div className="myaccount">
-            <div onClick={handleClick}>Log out</div>
+            <div onClick={handleLogOut}>Log out</div>
         </div>
     )
 }

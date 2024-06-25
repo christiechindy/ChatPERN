@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import SearchIcon from "../icons/SearchIcon"
 import FriendList from "./FriendList"
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext, TAuthContextData } from "../context/AuthContext";
 
 const List = () => {
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser} = useContext(AuthContext) as TAuthContextData;
 
     return (
         <div className="list">
             <div className="wrapper">
                 <div className="greetings">
-                    Hello, {currentUser.name}👋
+                    Hello, {currentUser?.name}👋
                 </div>
                 <div className="box">
                     <NavLink to={`/room/addFriend`} style={{textDecoration: 'none'}} className={({isActive}) => (isActive ? "active" : "")}>
