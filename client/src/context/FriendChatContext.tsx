@@ -31,7 +31,7 @@ export const FriendChatContextProvider = ({children}: IProps) => {
     const fetchFriends = async () => {
         try {
             setLoading(true);
-            const res = await axios.get(`http://localhost:5000/${currentUser!.user_id}/friends`);
+            const res = await axios.get(`${process.env.REACT_APP_API}/${currentUser!.user_id}/friends`);
             setFriends(res.data);
             console.log("frinedssssss", res.data);
             setLoading(false);

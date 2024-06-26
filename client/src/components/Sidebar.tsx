@@ -29,7 +29,7 @@ const Sidebar = () => {
             setShowNotif(false)
         } else {
             setLoading(true);
-            const res = await axios.post("http://localhost:5000/inv/lists", {id: currentUser!.user_id});
+            const res = await axios.post(`${process.env.REACT_APP_API}/inv/lists`, {id: currentUser!.user_id});
             setInvs(res.data);
             setLoading(false)
             console.log("invssss", res.data);

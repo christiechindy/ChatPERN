@@ -1,7 +1,5 @@
 import axios from "axios";
 import React, { useContext } from 'react'
-import { useState } from "react";
-import { useEffect } from "react";
 import { FriendChatContext, TFriendChatContextData } from "../context/FriendChatContext";
 import Avatar from "../icons/Avatar"
 import Loading from "./Loading";
@@ -18,7 +16,7 @@ const Notification = ({invs, setInvs, loading, setLoading}: IProps) => {
     const {fetchFriends} = useContext(FriendChatContext) as TFriendChatContextData;
 
     const confirmHandler = async (relation_id: number, user_id: number) => {
-        await axios.post("http://localhost:5000/inv/acc", {relation_id});
+        await axios.post(`${process.env.REACT_APP_API}/inv/acc`, {relation_id});
 
         setInvs(invs => invs.filter(data => data.person1 !== user_id));
 
@@ -27,7 +25,7 @@ const Notification = ({invs, setInvs, loading, setLoading}: IProps) => {
 
     const refuseHandler = async (relation_id: number, user_id: number) => {
         console.log("refuseee")
-        await axios.post("http://localhost:5000/inv/refuse", {relation_id});
+        await axios.post(`${process.env.REACT_APP_API}/inv/refuse`, {relation_id});
         setInvs(invs => invs.filter(data => data.person1 !== user_id));
     }
 

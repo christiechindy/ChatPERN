@@ -26,7 +26,7 @@ export default function SignUp() {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
-        await axios.post("http://localhost:5000/auth/register", inputs);
+        await axios.post(`${process.env.REACT_APP_API}/auth/register`, inputs);
         navigate("/login");
     }
 

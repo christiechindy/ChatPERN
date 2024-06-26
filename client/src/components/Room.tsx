@@ -62,7 +62,7 @@ const Room = ({socket}: ISocket) => {
 
     const fetchFriendProfile = async () => {
         try {
-            const res = await axios.get(`http://192.168.18.7:5000/friend=${friend_id}`);
+            const res = await axios.get(`${process.env.REACT_APP_API}/friend=${friend_id}`);
             console.log("friend Profile", res.data);
             setFriendProfile(res.data);
         } catch(err) {
@@ -78,7 +78,7 @@ const Room = ({socket}: ISocket) => {
 
     const fetchMessages = async (relationId: number) => {
         try {
-            const res = await axios.get(`http://192.168.18.7:5000/messages/${relationId}`);
+            const res = await axios.get(`${process.env.REACT_APP_API}/messages/${relationId}`);
             setMessages(res.data);
         } catch(err) {
             console.log(err);
@@ -109,7 +109,7 @@ const Room = ({socket}: ISocket) => {
 
             socket.emit("send_message", messageData, relationId);
             setMessages(mess => [...mess, messageData]);
-            await axios.post("http://192.168.18.7:5000/sendmessage", messageData);
+            await axios.post(`${process.env.REACT_APP_API}/sendmessage`, messageData);
             setTypingChat("");
         }
     }

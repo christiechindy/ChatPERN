@@ -10,7 +10,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { ClientToServerEvents, ServerToClientEvents } from "./socket-interface/interface";
 
 // const socket = io.connect("http://localhost:3000");
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("ws://localhost:5000");
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(process.env.REACT_APP_WS!);
 
 const Layout = () => {
     return (

@@ -13,7 +13,7 @@ const AddFriend = () => {
     const addHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
-        const ax = await axios.post("http://localhost:5000/inv/addFriend", {
+        const ax = await axios.post(`${process.env.REACT_APP_API}/inv/addFriend`, {
             email: fEmail,
             person1: currentUser!.user_id
         })

@@ -37,13 +37,13 @@ export const AuthContextProvider = ({children}: IProps) => {
     });
 
     const login = async (inputs:TInputLogin) => {
-        const res = await axios.post("http://localhost:5000/auth/login", inputs);
+        const res = await axios.post(`${process.env.REACT_APP_API}/auth/login`, inputs);
         setCurrentUser(res.data);
     }
     console.log("current user", currentUser);
 
     const logout = async () => {
-        await axios.post("http://localhost:5000/auth/logout");
+        await axios.post(`${process.env.REACT_APP_API}/auth/logout`);
         setCurrentUser(null);
     }
 
