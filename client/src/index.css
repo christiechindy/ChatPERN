@@ -322,8 +322,15 @@ img.face {
 }
 
 .header .status {
-    color: #04bc00;
     font-size: 14px;
+}
+
+.header .status .offline {
+    color: red;
+}
+
+.header .status .online {
+    color: #04bc00;
 }
 
 /* .room .wrapper div:last-child {

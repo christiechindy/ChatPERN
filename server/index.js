@@ -46,7 +46,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://192.168.18.7:3000",
         methods: ["GET", "POST"],
     }
 })
@@ -60,6 +60,10 @@ io.on("connection", (socket) => {
 
     socket.on("send_message", (data) => {
         socket.to(data.relation_id).emit("receive_message", data);
+    })
+
+    socket.on("set_online_status", (isOnline, relation_id) => {
+        socket.to(relation_id).emit("receive_status", isOnline);
     })
 })
 

@@ -21,6 +21,33 @@ interface IFriendProfile {
     pict: string,
 }
 
+interface VisibilityTrackerProps {
+    onVisibilityChange: (isVisible: boolean) => void;
+}
+
+const VisibilityTracker: React.FC<VisibilityTrackerProps> = ({ onVisibilityChange }) => {
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                onVisibilityChange(true);
+            } else {
+                onVisibilityChange(false);
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        // Initial check
+        handleVisibilityChange();
+
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [onVisibilityChange]);
+
+    return null;
+};
+
 const Room = ({socket}: ISocket) => {
     const location = useLocation();
 
@@ -35,7 +62,7 @@ const Room = ({socket}: ISocket) => {
 
     const fetchFriendProfile = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/friend=${friend_id}`);
+            const res = await axios.get(`http://192.168.18.7:5000/friend=${friend_id}`);
             console.log("friend Profile", res.data);
             setFriendProfile(res.data);
         } catch(err) {
@@ -51,9 +78,8 @@ const Room = ({socket}: ISocket) => {
 
     const fetchMessages = async (relationId: number) => {
         try {
-            const res = await axios.get(`http://localhost:5000/messages/${relationId}`);
+            const res = await axios.get(`http://192.168.18.7:5000/messages/${relationId}`);
             setMessages(res.data);
-            console.log("messagesssssss", res.data);
         } catch(err) {
             console.log(err);
         }
@@ -83,27 +109,39 @@ const Room = ({socket}: ISocket) => {
 
             socket.emit("send_message", messageData, relationId);
             setMessages(mess => [...mess, messageData]);
-            await axios.post("http://localhost:5000/sendmessage", messageData);
+            await axios.post("http://192.168.18.7:5000/sendmessage", messageData);
             setTypingChat("");
         }
     }
 
+    const [isFriendOnline, setIsFriendOnline] = useState<boolean>(false);
     useEffect(() => {
         socket.on("receive_message", (data) => {
             setMessages(mess => [...mess, data]);
         })
+
+        socket.on("receive_status", (data) => {
+            setIsFriendOnline(data);
+        })
     }, [socket])
 
     const buttonSendRef = useRef<HTMLDivElement>(null);
-
     const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             buttonSendRef.current?.click();
         }
     }
 
+    const [isOnline, setIsOnline] = useState<boolean>(false);
+    const handleOnlineChange = (isOnline: boolean) => {
+        console.log("trgnaitii", relationId);
+        setIsOnline(isOnline);
+        socket.emit("set_online_status", isOnline, relationId);
+    }
+
     return (
         <div className="room">
+            <VisibilityTracker onVisibilityChange={handleOnlineChange} />
             <div className="wrapper">
             <div className="header">
                 <div className="people">
@@ -119,13 +157,17 @@ const Room = ({socket}: ISocket) => {
                     </div>
                 </div>
                 <div className="status">
-                    online
+                    {isFriendOnline ? 
+                        <div className="online">Online</div>
+                        :
+                        <div className="offline">Offline</div>
+                    }
                 </div>
             </div>
             <div>
             <div className="messages">
-                {messages.map(message => (
-                    <div className={message.sender_id === my_id ? "bubbleChat right" : "bubbleChat left"}>
+                {messages.map((message,i) => (
+                    <div key={i} className={message.sender_id === my_id ? "bubbleChat right" : "bubbleChat left"}>
                         <div className="message">{message.words}</div>
                         <div className="info">
                             {/* <div className="read">Read</div> */}
