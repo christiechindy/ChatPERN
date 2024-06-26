@@ -2,22 +2,28 @@ import axios from "axios";
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 
+interface ISignUpData {
+    name: string,
+    email: string,
+    password: string,
+    repassword: string,
+}
+
 export default function SignUp() {
-    const [inputs, setInputs] = useState({
+    const [inputs, setInputs] = useState<ISignUpData>({
         name: "",
         email: "",
         password: "",
         repassword: ""
     })
 
-    const [err, setErr] = useState(null);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
         await axios.post("http://localhost:5000/auth/register", inputs);
@@ -49,7 +55,7 @@ export default function SignUp() {
                     {(inputs.password!==inputs.repassword) ? <span className='inputStatus'>The password doesnt match</span> : ""}
                 </div>
 
-                <button class="btn" onClick={handleSubmit}>Sign Up</button>
+                <button className="btn" onClick={handleSubmit}>Sign Up</button>
         
             </form>
             <span className="another">Already have an accout? <Link to={"/login"}>Login!</Link> </span>

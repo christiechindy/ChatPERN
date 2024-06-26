@@ -2,31 +2,29 @@ import React, { useEffect } from 'react'
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext, TAuthContextData, TInputLogin } from "../context/AuthContext";
 
 export default function LoginPage() {
-    const [inputs, setInputs] = useState({
+    const [inputs, setInputs] = useState<TInputLogin>({
         email: "",
         password: ""
     })
 
-    const [err, setError] = useState(null);
+    const [err, setError] = useState<string>("");
     const navigate = useNavigate();
 
-    const {login} = useContext(AuthContext);
+    const {login, currentUser} = useContext(AuthContext) as TAuthContextData;
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputs(prev => ({...prev, [e.target.name]: e.target.value}))
     }
 
-    const {currentUser} = useContext(AuthContext);
-
-    const handleSubmit = async(e) => {
+    const handleSubmit = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
         try {
             await login(inputs);
-        } catch (err) {
+        } catch (err:any) {
             setError(err.response.data);
         }
     }
@@ -50,12 +48,12 @@ export default function LoginPage() {
                         <input type="password" id="signup-password" placeholder="password" name="password" onChange={handleChange} />
                     </div>
 
-                    <button onClick={handleSubmit} class="btn">Login</button>
+                    <button onClick={handleSubmit} className="btn">Login</button>
                 </form>
 
                 {err && <p className="error">{err}</p>}
 
-                <span class="another">Doesn't have an account? <Link to={"/register"} style={{ textDecoration: 'none' }}>Register!</Link> </span>
+                <span className="another">Doesn't have an account? <Link to={"/register"} style={{ textDecoration: 'none' }}>Register!</Link> </span>
             </div>
         </div>
     );
