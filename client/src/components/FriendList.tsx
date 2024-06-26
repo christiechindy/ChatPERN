@@ -17,21 +17,22 @@ const FriendList = () => {
                     style={{textDecoration: 'none'}} 
                     className={({isActive}) => (isActive ? "active" : "")}
                     state={{friend_id: friend.friend_id}}
+                    key={friend.friend_id}
                 >
-                <div className="row" key={friend.relation_id}>
-                    <div className="icon">
-                        {friend.pict ?
-                        <img src={friend.pict} alt={friend.name} className="face" /> :
-                        <Avatar />
-                    }
+                    <div className="row" key={friend.relation_id}>
+                        <div className="icon">
+                            {friend.pict ?
+                            <img src={friend.pict} alt={friend.name} className="face" /> :
+                            <Avatar />
+                        }
 
-                    </div>
-                    <div className="text">
-                        <div className="text-left">
-                            <div className="name">{friend.name} </div>
+                        </div>
+                        <div className="text">
+                            <div className="text-left">
+                                <div className="name">{friend.name} </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </NavLink>
             ))}
         </>
