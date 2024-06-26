@@ -20,7 +20,7 @@ export interface IInvs {
 const Sidebar = () => {
     const [showNotif, setShowNotif] = useState<boolean>(false);
     const [invs, setInvs] = useState<IInvs[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const {currentUser} = useContext(AuthContext) as TAuthContextData;
 
@@ -38,7 +38,7 @@ const Sidebar = () => {
         }
     }
 
-    const [showProfil, setShowProfil] = useState(false);
+    const [showProfil, setShowProfil] = useState<boolean>(false);
 
     return (
         <div className="sidebar">
