@@ -63,7 +63,6 @@ const Room = ({socket}: ISocket) => {
     const fetchFriendProfile = async () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API}/friend=${friend_id}`);
-            console.log("friend Profile", res.data);
             setFriendProfile(res.data);
         } catch(err) {
             console.log(err);
@@ -105,7 +104,6 @@ const Room = ({socket}: ISocket) => {
                 relation_id: relationId,
                 words: typingChat
             }
-            console.log("messageData", messageData);
 
             socket.emit("send_message", messageData, relationId);
             setMessages(mess => [...mess, messageData]);
@@ -134,7 +132,6 @@ const Room = ({socket}: ISocket) => {
 
     const [isOnline, setIsOnline] = useState<boolean>(false);
     const handleOnlineChange = (isOnline: boolean) => {
-        console.log("trgnaitii", relationId);
         setIsOnline(isOnline);
         socket.emit("set_online_status", isOnline, relationId);
     }
